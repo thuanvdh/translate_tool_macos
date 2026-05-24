@@ -55,7 +55,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @MainActor
     private func setupStatusItem() {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        item.button?.title = "VI"
+        item.button?.title = "T"
 
         let menu = NSMenu()
         menu.addItem(makeMenuItem(title: "Translate Selection", action: #selector(translateSelection), keyEquivalent: ""))

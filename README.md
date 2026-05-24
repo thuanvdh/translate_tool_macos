@@ -4,7 +4,7 @@ Tool Translate is a native macOS menu bar app that translates selected text into
 
 ## MVP Features
 
-- Menu bar app with `VI` status item.
+- Menu bar app with `T` status item.
 - Global shortcut: `Control + Option + T`.
 - OpenAI-powered translation into natural Vietnamese.
 - Popup result window with copy support.
@@ -25,7 +25,7 @@ swift test
 swift run ToolTranslate
 ```
 
-After launch, open the `VI` menu bar item, choose Settings, and save your OpenAI API key.
+After launch, open the `T` menu bar item, choose Settings, and save your OpenAI API key.
 
 ## Build a macOS App
 
@@ -63,7 +63,7 @@ If translation fails with a permission message:
 
 If the app still says Accessibility is not active:
 
-1. Quit Tool Translate from the `VI` menu.
+1. Quit Tool Translate from the `T` menu.
 2. In Accessibility settings, remove Tool Translate with the minus button.
 3. Open `dist/ToolTranslate.app` again.
 4. Add or enable that exact app in Accessibility settings.
