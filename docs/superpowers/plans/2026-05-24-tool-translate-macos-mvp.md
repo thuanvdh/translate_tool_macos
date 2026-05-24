@@ -1018,7 +1018,7 @@ git commit -m "feat: add accessibility selection capture"
 - Create: `Sources/ToolTranslate/Shortcut/ShortcutManager.swift`
 - Create: `Tests/ToolTranslateTests/ShortcutManagerTests.swift`
 
-- [ ] **Step 1: Write failing shortcut tests**
+- [x] **Step 1: Write failing shortcut tests**
 
 Create `Tests/ToolTranslateTests/ShortcutManagerTests.swift` with:
 
@@ -1043,7 +1043,7 @@ final class ShortcutManagerTests: XCTestCase {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [x] **Step 2: Run tests to verify failure**
 
 Run:
 
@@ -1053,7 +1053,7 @@ swift test --filter ShortcutManagerTests
 
 Expected: FAIL because `AppShortcut` is not defined.
 
-- [ ] **Step 3: Add shortcut manager**
+- [x] **Step 3: Add shortcut manager**
 
 Create `Sources/ToolTranslate/Shortcut/ShortcutManager.swift` with:
 
@@ -1161,7 +1161,7 @@ final class ShortcutManager {
 }
 ```
 
-- [ ] **Step 4: Run shortcut tests**
+- [x] **Step 4: Run shortcut tests**
 
 Run:
 
@@ -1171,7 +1171,7 @@ swift test --filter ShortcutManagerTests
 
 Expected: PASS for all `ShortcutManagerTests`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add Sources/ToolTranslate/Shortcut Tests/ToolTranslateTests/ShortcutManagerTests.swift
