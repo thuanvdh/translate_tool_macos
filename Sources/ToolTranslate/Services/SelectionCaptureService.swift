@@ -52,6 +52,7 @@ final class SelectionCaptureService {
         let pasteboard = NSPasteboard.general
         let snapshot = ClipboardSnapshot.capture(from: pasteboard)
 
+        waitForShortcutModifiersToClear()
         pasteboard.clearContents()
         let emptyChangeCount = pasteboard.changeCount
         postCommandC()
@@ -76,6 +77,23 @@ final class SelectionCaptureService {
         }
 
         return copiedText
+    }
+
+    private func waitForShortcutModifiersToClear() {
+        let deadline = Date().addingTimeInterval(0.8)
+        while Date() < deadline {
+            let flags = CGEventSource.flagsState(.hidSystemState)
+            let shortcutModifiersAreDown = flags.contains(.maskControl)
+                || flags.contains(.maskAlternate)
+                || flags.contains(.maskCommand)
+                || flags.contains(.maskShift)
+
+            if !shortcutModifiersAreDown {
+                return
+            }
+
+            Thread.sleep(forTimeInterval: 0.03)
+        }
     }
 
     private func postCommandC() {
