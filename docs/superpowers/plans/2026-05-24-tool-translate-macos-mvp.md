@@ -1187,7 +1187,7 @@ git commit -m "feat: add configurable shortcut foundation"
 - Create: `Sources/ToolTranslate/Popup/TranslationPopupWindowController.swift`
 - Create: `Sources/ToolTranslate/Settings/SettingsWindowController.swift`
 
-- [ ] **Step 1: Add popup view controller**
+- [x] **Step 1: Add popup view controller**
 
 Create `Sources/ToolTranslate/Popup/TranslationPopupViewController.swift` with:
 
@@ -1296,7 +1296,7 @@ final class TranslationPopupViewController: NSViewController {
 }
 ```
 
-- [ ] **Step 2: Add popup window controller**
+- [x] **Step 2: Add popup window controller**
 
 Create `Sources/ToolTranslate/Popup/TranslationPopupWindowController.swift` with:
 
@@ -1340,7 +1340,7 @@ final class TranslationPopupWindowController: NSWindowController {
 }
 ```
 
-- [ ] **Step 3: Add settings window**
+- [x] **Step 3: Add settings window**
 
 Create `Sources/ToolTranslate/Settings/SettingsWindowController.swift` with:
 
@@ -1418,7 +1418,7 @@ final class SettingsWindowController: NSWindowController {
 }
 ```
 
-- [ ] **Step 4: Build**
+- [x] **Step 4: Build**
 
 Run:
 
@@ -1428,7 +1428,7 @@ swift build
 
 Expected: build succeeds.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add Sources/ToolTranslate/Popup Sources/ToolTranslate/Settings
