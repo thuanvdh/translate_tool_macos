@@ -615,7 +615,7 @@ git commit -m "feat: store api key in keychain"
 - Create: `Sources/ToolTranslate/Engines/OpenAITranslationEngine.swift`
 - Create: `Tests/ToolTranslateTests/OpenAITranslationEngineTests.swift`
 
-- [ ] **Step 1: Write failing OpenAI engine tests**
+- [x] **Step 1: Write failing OpenAI engine tests**
 
 Create `Tests/ToolTranslateTests/OpenAITranslationEngineTests.swift` with:
 
@@ -765,7 +765,7 @@ private extension URLSession {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [x] **Step 2: Run tests to verify failure**
 
 Run:
 
@@ -775,7 +775,7 @@ swift test --filter OpenAITranslationEngineTests
 
 Expected: FAIL because `OpenAITranslationEngine` is not defined.
 
-- [ ] **Step 3: Add OpenAI engine**
+- [x] **Step 3: Add OpenAI engine**
 
 Create `Sources/ToolTranslate/Engines/OpenAITranslationEngine.swift` with:
 
@@ -903,7 +903,7 @@ private struct OpenAIResponsesResponse: Decodable {
 }
 ```
 
-- [ ] **Step 4: Run engine tests**
+- [x] **Step 4: Run engine tests**
 
 Run:
 
@@ -913,7 +913,7 @@ swift test --filter OpenAITranslationEngineTests
 
 Expected: PASS for all `OpenAITranslationEngineTests`.
 
-- [ ] **Step 5: Run all tests**
+- [x] **Step 5: Run all tests**
 
 Run:
 
@@ -923,7 +923,7 @@ swift test
 
 Expected: PASS for all tests.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add Sources/ToolTranslate/Engines/OpenAITranslationEngine.swift Tests/ToolTranslateTests/OpenAITranslationEngineTests.swift
