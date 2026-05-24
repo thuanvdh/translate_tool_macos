@@ -456,7 +456,7 @@ git commit -m "feat: add translation service contract"
 - Create: `Sources/ToolTranslate/Security/KeychainStore.swift`
 - Create: `Tests/ToolTranslateTests/KeychainStoreTests.swift`
 
-- [ ] **Step 1: Write failing Keychain tests**
+- [x] **Step 1: Write failing Keychain tests**
 
 Create `Tests/ToolTranslateTests/KeychainStoreTests.swift` with:
 
@@ -500,7 +500,7 @@ final class KeychainStoreTests: XCTestCase {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [x] **Step 2: Run tests to verify failure**
 
 Run:
 
@@ -510,7 +510,7 @@ swift test --filter KeychainStoreTests
 
 Expected: FAIL because `KeychainStore` is not defined.
 
-- [ ] **Step 3: Add Keychain store**
+- [x] **Step 3: Add Keychain store**
 
 Create `Sources/ToolTranslate/Security/KeychainStore.swift` with:
 
@@ -590,7 +590,7 @@ final class KeychainStore {
 }
 ```
 
-- [ ] **Step 4: Run tests**
+- [x] **Step 4: Run tests**
 
 Run:
 
@@ -600,7 +600,7 @@ swift test --filter KeychainStoreTests
 
 Expected: PASS for all `KeychainStoreTests`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add Sources/ToolTranslate/Security Tests/ToolTranslateTests/KeychainStoreTests.swift
