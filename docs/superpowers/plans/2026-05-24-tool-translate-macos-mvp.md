@@ -202,7 +202,7 @@ git commit -m "chore: scaffold macos swift package"
 - Create: `Sources/ToolTranslate/Services/TranslationService.swift`
 - Create: `Tests/ToolTranslateTests/TranslationServiceTests.swift`
 
-- [ ] **Step 1: Write failing service tests**
+- [x] **Step 1: Write failing service tests**
 
 Create `Tests/ToolTranslateTests/TranslationServiceTests.swift` with:
 
@@ -297,7 +297,7 @@ private extension TranslationResult {
 }
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [x] **Step 2: Run tests to verify failure**
 
 Run:
 
@@ -307,7 +307,7 @@ swift test --filter TranslationServiceTests
 
 Expected: FAIL because `TranslationService`, `TranslationEngine`, and `AppError` are not defined.
 
-- [ ] **Step 3: Add user-facing app errors**
+- [x] **Step 3: Add user-facing app errors**
 
 Create `Sources/ToolTranslate/App/AppError.swift` with:
 
@@ -353,7 +353,7 @@ enum AppError: Error, Equatable, LocalizedError {
 }
 ```
 
-- [ ] **Step 4: Add translation engine models**
+- [x] **Step 4: Add translation engine models**
 
 Create `Sources/ToolTranslate/Engines/TranslationEngine.swift` with:
 
@@ -396,7 +396,7 @@ struct TranslationResult: Equatable {
 }
 ```
 
-- [ ] **Step 5: Add translation service**
+- [x] **Step 5: Add translation service**
 
 Create `Sources/ToolTranslate/Services/TranslationService.swift` with:
 
@@ -431,7 +431,7 @@ final class TranslationService {
 }
 ```
 
-- [ ] **Step 6: Run tests**
+- [x] **Step 6: Run tests**
 
 Run:
 
@@ -441,7 +441,7 @@ swift test --filter TranslationServiceTests
 
 Expected: PASS for all `TranslationServiceTests`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add Sources/ToolTranslate/App Sources/ToolTranslate/Engines Sources/ToolTranslate/Services Tests/ToolTranslateTests/TranslationServiceTests.swift
