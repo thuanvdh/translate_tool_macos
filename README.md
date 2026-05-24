@@ -61,6 +61,16 @@ If translation fails with a permission message:
 4. Enable Tool Translate, or enable the terminal app if you are running from source.
 5. Try the shortcut again.
 
+If the app still says Accessibility is not active:
+
+1. Quit Tool Translate from the `VI` menu.
+2. In Accessibility settings, remove Tool Translate with the minus button.
+3. Open `dist/ToolTranslate.app` again.
+4. Add or enable that exact app in Accessibility settings.
+5. Quit and reopen Tool Translate once more.
+
+macOS can require a restart of the app after Accessibility permission changes. If the app was rebuilt, macOS may also treat it as a different app permission entry.
+
 ## Privacy
 
 Tool Translate sends the selected text to OpenAI for translation. The app does not store translation history, does not cache translated content, and stores only the OpenAI API key in macOS Keychain.

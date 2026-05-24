@@ -37,7 +37,7 @@ final class AppCoordinator {
         } catch AppError.accessibilityPermissionMissing {
             _ = selectionCaptureService.hasAccessibilityPermission(prompt: true)
             popupWindowController.show(
-                state: .error("Enable Accessibility permission for Tool Translate in System Settings, then try again."),
+                state: .input(prompt: "Accessibility permission is not active yet. Quit and reopen Tool Translate after enabling it, or paste text here and press Return."),
                 near: point
             )
         } catch AppError.selectionUnavailable {
