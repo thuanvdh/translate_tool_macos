@@ -6,3 +6,6 @@ DerivedData/
 *.xcuserstate
 *.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
+.agent/
+.agents/
+.planning/
