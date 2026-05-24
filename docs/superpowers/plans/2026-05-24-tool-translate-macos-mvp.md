@@ -1640,7 +1640,7 @@ git commit -m "feat: wire menu bar translation flow"
 - Create: `.github/ISSUE_TEMPLATE/feature_request.md`
 - Create: `docs/RELEASE_CHECKLIST.md`
 
-- [ ] **Step 1: Create README**
+- [x] **Step 1: Create README**
 
 Create `README.md` with:
 
@@ -1709,7 +1709,7 @@ swift test
 This project is in MVP development. See `DESIGN.md` for the design and `docs/superpowers/plans/2026-05-24-tool-translate-macos-mvp.md` for the implementation plan.
 ```
 
-- [ ] **Step 2: Create issue templates**
+- [x] **Step 2: Create issue templates**
 
 Create `.github/ISSUE_TEMPLATE/bug_report.md` with:
 
@@ -1776,7 +1776,7 @@ Describe other approaches you considered.
 Add examples, screenshots, or related links.
 ```
 
-- [ ] **Step 3: Create release checklist**
+- [x] **Step 3: Create release checklist**
 
 Create `docs/RELEASE_CHECKLIST.md` with:
 
@@ -1801,7 +1801,7 @@ Create `docs/RELEASE_CHECKLIST.md` with:
 This MVP is not signed or notarized. Users may see macOS security warnings when running downloaded builds. Document the exact install path used for any release artifact.
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add README.md .github docs/RELEASE_CHECKLIST.md
@@ -1815,7 +1815,7 @@ git commit -m "docs: add open source project documentation"
 **Files:**
 - Create: `.github/workflows/ci.yml`
 
-- [ ] **Step 1: Create GitHub Actions workflow**
+- [x] **Step 1: Create GitHub Actions workflow**
 
 Create `.github/workflows/ci.yml` with:
 
@@ -1845,7 +1845,7 @@ jobs:
         run: swift test
 ```
 
-- [ ] **Step 2: Run local CI commands**
+- [x] **Step 2: Run local CI commands**
 
 Run:
 
@@ -1856,7 +1856,7 @@ swift test
 
 Expected: both commands pass locally.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add .github/workflows/ci.yml
