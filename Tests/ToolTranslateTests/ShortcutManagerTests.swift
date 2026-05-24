@@ -13,6 +13,6 @@ final class ShortcutManagerTests: XCTestCase {
     }
 
     func testShortcutDisplayName() {
-        XCTAssertEqual(AppShortcut.default.displayName, "Control + Option + T")
+        XCTAssertEqual(AppShortcut.default.displayName, "⌃ ⌥ T")
     }
 }

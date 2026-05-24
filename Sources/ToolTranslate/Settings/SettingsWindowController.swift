@@ -1,8 +1,13 @@
 import AppKit
+import Carbon
+
+extension Notification.Name {
+    static let appShortcutDidChange = Notification.Name("appShortcutDidChange")
+}
 
 final class SettingsWindowController: NSWindowController {
     private let apiKeyField = NSSecureTextField()
-    private let shortcutLabel = NSTextField(labelWithString: AppShortcut.default.displayName)
+    private let shortcutRecorder = ShortcutRecorderButton()
     private let statusLabel = NSTextField(labelWithString: "")
     private let keychainStore: KeychainStore
 
@@ -10,7 +15,7 @@ final class SettingsWindowController: NSWindowController {
         self.keychainStore = keychainStore
 
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 460, height: 190),
+            contentRect: NSRect(x: 0, y: 0, width: 460, height: 210),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
@@ -34,7 +39,23 @@ final class SettingsWindowController: NSWindowController {
         apiKeyField.placeholderString = "OpenAI API key"
 
         let saveButton = NSButton(title: "Save API Key", target: self, action: #selector(saveAPIKey))
-        let shortcutText = NSTextField(labelWithString: "Shortcut")
+        
+        let shortcutRow = NSStackView()
+        shortcutRow.orientation = .horizontal
+        shortcutRow.spacing = 8
+        shortcutRow.distribution = .fill
+        
+        let shortcutText = NSTextField(labelWithString: "Translation Shortcut:")
+        shortcutText.font = NSFont.boldSystemFont(ofSize: 13)
+        
+        shortcutRow.addArrangedSubview(shortcutText)
+        shortcutRow.addArrangedSubview(shortcutRecorder)
+        
+        shortcutRecorder.onShortcutChanged = { shortcut in
+            shortcut.save()
+            NotificationCenter.default.post(name: .appShortcutDidChange, object: nil)
+        }
+
         let privacyText = NSTextField(labelWithString: "Privacy: selected text is sent to OpenAI for translation. This app does not store history or cache translations.")
         privacyText.lineBreakMode = .byWordWrapping
         privacyText.maximumNumberOfLines = 3
@@ -42,8 +63,7 @@ final class SettingsWindowController: NSWindowController {
         root.addArrangedSubview(NSTextField(labelWithString: "OpenAI API Key"))
         root.addArrangedSubview(apiKeyField)
         root.addArrangedSubview(saveButton)
-        root.addArrangedSubview(shortcutText)
-        root.addArrangedSubview(shortcutLabel)
+        root.addArrangedSubview(shortcutRow)
         root.addArrangedSubview(privacyText)
         root.addArrangedSubview(statusLabel)
 
@@ -67,5 +87,109 @@ final class SettingsWindowController: NSWindowController {
         } catch {
             statusLabel.stringValue = error.localizedDescription
         }
+    }
+}
+
+final class ShortcutRecorderButton: NSButton {
+    var isRecording = false {
+        didSet {
+            updateButtonState()
+        }
+    }
+    
+    private var activeShortcut: AppShortcut? {
+        didSet {
+            updateButtonState()
+        }
+    }
+    
+    var onShortcutChanged: ((AppShortcut) -> Void)?
+    
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        self.bezelStyle = .rounded
+        self.setButtonType(.momentaryPushIn)
+        self.activeShortcut = AppShortcut.load() ?? .default
+        updateButtonState()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    private func updateButtonState() {
+        if isRecording {
+            self.title = "Recording... Press keys"
+            self.highlight(true)
+        } else {
+            self.title = activeShortcut?.displayName ?? "Click to record"
+            self.highlight(false)
+        }
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        if isRecording {
+            cancelRecording()
+        } else {
+            startRecording()
+        }
+    }
+    
+    private func startRecording() {
+        isRecording = true
+        setupEventMonitor()
+    }
+    
+    private func cancelRecording() {
+        isRecording = false
+        removeEventMonitor()
+    }
+    
+    private var eventMonitor: Any?
+    
+    private func setupEventMonitor() {
+        removeEventMonitor()
+        
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] event in
+            guard let self = self, self.isRecording else { return event }
+            
+            let keyCode = event.keyCode
+            
+            if keyCode == 53 { // Escape
+                self.cancelRecording()
+                return nil
+            }
+            
+            let flags = event.modifierFlags
+            var modifiers: AppShortcut.Modifiers = []
+            if flags.contains(.command) { modifiers.insert(.command) }
+            if flags.contains(.option) { modifiers.insert(.option) }
+            if flags.contains(.control) { modifiers.insert(.control) }
+            if flags.contains(.shift) { modifiers.insert(.shift) }
+            
+            // Require at least one modifier key
+            if modifiers.isEmpty {
+                return nil
+            }
+            
+            let newShortcut = AppShortcut(keyCode: UInt32(keyCode), modifiers: modifiers)
+            self.activeShortcut = newShortcut
+            self.isRecording = false
+            self.removeEventMonitor()
+            
+            self.onShortcutChanged?(newShortcut)
+            return nil
+        }
+    }
+    
+    private func removeEventMonitor() {
+        if let monitor = eventMonitor {
+            NSEvent.removeMonitor(monitor)
+            eventMonitor = nil
+        }
+    }
+    
+    deinit {
+        removeEventMonitor()
     }
 }

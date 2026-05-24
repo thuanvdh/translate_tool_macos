@@ -81,13 +81,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
 
+        let shortcut = AppShortcut.load() ?? .default
         do {
-            try manager.register(shortcut: .default)
+            try manager.register(shortcut: shortcut)
         } catch {
             NSLog("Shortcut registration failed: \(error.localizedDescription)")
         }
 
         shortcutManager = manager
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleShortcutChange),
+            name: .appShortcutDidChange,
+            object: nil
+        )
+    }
+
+    @objc @MainActor
+    private func handleShortcutChange() {
+        let shortcut = AppShortcut.load() ?? .default
+        do {
+            try shortcutManager?.register(shortcut: shortcut)
+            NSLog("Successfully re-registered custom shortcut: \(shortcut.displayName)")
+        } catch {
+            NSLog("Failed to register new shortcut: \(error.localizedDescription)")
+        }
     }
 
     @MainActor
