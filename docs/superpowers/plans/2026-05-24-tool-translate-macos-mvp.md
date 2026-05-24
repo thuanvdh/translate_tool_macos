@@ -1613,7 +1613,7 @@ swift test
 
 Expected: PASS for all tests.
 
-- [ ] **Step 4: Manual run**
+- [x] **Step 4: Manual run**
 
 Run:
 
@@ -1870,7 +1870,7 @@ git commit -m "ci: add macos build and test workflow"
 **Files:**
 - Modify only if acceptance reveals a defect in files from earlier tasks.
 
-- [ ] **Step 1: Run full automated checks**
+- [x] **Step 1: Run full automated checks**
 
 Run:
 
@@ -1881,7 +1881,7 @@ swift build -c release
 
 Expected: both commands pass.
 
-- [ ] **Step 2: Launch app**
+- [x] **Step 2: Launch app**
 
 Run:
 
@@ -1931,7 +1931,7 @@ Press Return.
 
 Expected: popup translates the manually pasted text.
 
-- [ ] **Step 6: Verify no history files are created**
+- [x] **Step 6: Verify no history files are created**
 
 Run:
 
