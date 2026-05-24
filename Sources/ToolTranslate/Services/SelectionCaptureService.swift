@@ -23,22 +23,20 @@ final class SelectionCaptureService {
             &focusedObject
         )
 
-        guard focusedResult == .success, let focusedObject else {
-            throw AppError.selectionUnavailable
-        }
+        if focusedResult == .success, let focusedObject {
+            let focusedElement = focusedObject as! AXUIElement
+            var selectedTextObject: CFTypeRef?
+            let selectedTextResult = AXUIElementCopyAttributeValue(
+                focusedElement,
+                kAXSelectedTextAttribute as CFString,
+                &selectedTextObject
+            )
 
-        let focusedElement = focusedObject as! AXUIElement
-        var selectedTextObject: CFTypeRef?
-        let selectedTextResult = AXUIElementCopyAttributeValue(
-            focusedElement,
-            kAXSelectedTextAttribute as CFString,
-            &selectedTextObject
-        )
-
-        if selectedTextResult == .success,
-           let selectedText = selectedTextObject as? String,
-           !selectedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return selectedText
+            if selectedTextResult == .success,
+               let selectedText = selectedTextObject as? String,
+               !selectedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                return selectedText
+            }
         }
 
         return try selectedTextFromClipboardCopyFallback()

@@ -42,7 +42,7 @@ final class AppCoordinator {
             )
         } catch AppError.selectionUnavailable {
             popupWindowController.show(
-                state: .input(prompt: "Could not read selected text. Paste text here and press Return."),
+                state: .input(prompt: "Paste text here and press Return."),
                 near: point
             )
         } catch {
