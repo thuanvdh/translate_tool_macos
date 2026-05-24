@@ -937,7 +937,7 @@ git commit -m "feat: add openai translation engine"
 **Files:**
 - Create: `Sources/ToolTranslate/Services/SelectionCaptureService.swift`
 
-- [ ] **Step 1: Add selection capture service**
+- [x] **Step 1: Add selection capture service**
 
 Create `Sources/ToolTranslate/Services/SelectionCaptureService.swift` with:
 
@@ -993,7 +993,7 @@ final class SelectionCaptureService {
 }
 ```
 
-- [ ] **Step 2: Build**
+- [x] **Step 2: Build**
 
 Run:
 
@@ -1003,7 +1003,7 @@ swift build
 
 Expected: build succeeds.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add Sources/ToolTranslate/Services/SelectionCaptureService.swift
