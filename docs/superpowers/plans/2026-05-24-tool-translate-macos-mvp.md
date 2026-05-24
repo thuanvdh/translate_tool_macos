@@ -1443,7 +1443,7 @@ git commit -m "feat: add popup and settings windows"
 - Create: `Sources/ToolTranslate/App/AppCoordinator.swift`
 - Modify: `Sources/ToolTranslate/App/AppDelegate.swift`
 
-- [ ] **Step 1: Add app coordinator**
+- [x] **Step 1: Add app coordinator**
 
 Create `Sources/ToolTranslate/App/AppCoordinator.swift` with:
 
@@ -1524,7 +1524,7 @@ final class AppCoordinator {
 }
 ```
 
-- [ ] **Step 2: Replace app delegate with wired version**
+- [x] **Step 2: Replace app delegate with wired version**
 
 Replace `Sources/ToolTranslate/App/AppDelegate.swift` with:
 
@@ -1603,7 +1603,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 }
 ```
 
-- [ ] **Step 3: Build and test**
+- [x] **Step 3: Build and test**
 
 Run:
 
@@ -1623,7 +1623,7 @@ swift run ToolTranslate
 
 Expected: app starts, a `VI` menu bar item appears, Settings opens from the menu, and `Control + Option + T` triggers the translate flow. Stop with `Control + C` in the terminal after manual verification.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add Sources/ToolTranslate/App/AppCoordinator.swift Sources/ToolTranslate/App/AppDelegate.swift
