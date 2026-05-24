@@ -42,7 +42,7 @@
 
 The current workspace is not a git repository. Initialize git before starting Task 1 so the commit steps work.
 
-- [ ] **Step 1: Initialize git**
+- [x] **Step 1: Initialize git**
 
 Run:
 
@@ -52,7 +52,7 @@ git init
 
 Expected: command exits with status 0 and creates `.git/`.
 
-- [ ] **Step 2: Commit existing design artifacts**
+- [x] **Step 2: Commit existing design artifacts**
 
 Run:
 
@@ -73,7 +73,7 @@ Expected: commit succeeds and records the design plus this plan.
 - Create: `Sources/ToolTranslate/App/AppDelegate.swift`
 - Create: `Tests/ToolTranslateTests/SmokeTests.swift`
 
-- [ ] **Step 1: Create package directories**
+- [x] **Step 1: Create package directories**
 
 Run:
 
@@ -83,7 +83,7 @@ mkdir -p Sources/ToolTranslate/App Tests/ToolTranslateTests
 
 Expected: command exits with status 0.
 
-- [ ] **Step 2: Create `Package.swift`**
+- [x] **Step 2: Create `Package.swift`**
 
 Create `Package.swift` with:
 
@@ -113,7 +113,7 @@ let package = Package(
 )
 ```
 
-- [ ] **Step 3: Create app entry point**
+- [x] **Step 3: Create app entry point**
 
 Create `Sources/ToolTranslate/main.swift` with:
 
@@ -127,7 +127,7 @@ app.setActivationPolicy(.accessory)
 app.run()
 ```
 
-- [ ] **Step 4: Create minimal app delegate**
+- [x] **Step 4: Create minimal app delegate**
 
 Create `Sources/ToolTranslate/App/AppDelegate.swift` with:
 
@@ -160,7 +160,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 }
 ```
 
-- [ ] **Step 5: Add smoke test**
+- [x] **Step 5: Add smoke test**
 
 Create `Tests/ToolTranslateTests/SmokeTests.swift` with:
 
@@ -175,7 +175,7 @@ final class SmokeTests: XCTestCase {
 }
 ```
 
-- [ ] **Step 6: Build and test**
+- [x] **Step 6: Build and test**
 
 Run:
 
@@ -185,7 +185,7 @@ swift test
 
 Expected: PASS with `Executed 1 test`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add Package.swift Sources Tests
