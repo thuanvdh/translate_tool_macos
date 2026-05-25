@@ -12,6 +12,7 @@ final class TranslationPopupViewController: NSViewController {
     var onCopy: ((String) -> Void)?
 
     private let stack = NSStackView()
+    private let scrollView = NSScrollView()
     private let textView = NSTextView()
     private let inputField = NSTextField()
     private let primaryButton = NSButton(title: "Copy", target: nil, action: nil)
@@ -28,10 +29,23 @@ final class TranslationPopupViewController: NSViewController {
         stack.edgeInsets = NSEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
         stack.translatesAutoresizingMaskIntoConstraints = false
 
+        scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = false
+        scrollView.autohidesScrollers = true
+        scrollView.drawsBackground = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
         textView.isEditable = false
         textView.drawsBackground = false
         textView.font = .systemFont(ofSize: 14)
         textView.textContainerInset = NSSize(width: 0, height: 0)
+        textView.isVerticallyResizable = true
+        textView.isHorizontallyResizable = false
+        textView.autoresizingMask = [.width]
+        textView.textContainer?.containerSize = NSSize(width: 332, height: CGFloat.greatestFiniteMagnitude)
+        textView.textContainer?.widthTracksTextView = true
+
+        scrollView.documentView = textView
 
         inputField.placeholderString = "Paste text to translate"
         inputField.target = self
@@ -40,7 +54,7 @@ final class TranslationPopupViewController: NSViewController {
         primaryButton.target = self
         primaryButton.action = #selector(copyCurrentText)
 
-        stack.addArrangedSubview(textView)
+        stack.addArrangedSubview(scrollView)
         stack.addArrangedSubview(inputField)
         stack.addArrangedSubview(primaryButton)
         view.addSubview(stack)
@@ -50,7 +64,7 @@ final class TranslationPopupViewController: NSViewController {
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stack.topAnchor.constraint(equalTo: view.topAnchor),
             stack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 90)
+            scrollView.heightAnchor.constraint(greaterThanOrEqualToConstant: 90)
         ])
 
         render(.loading("Ready"))
