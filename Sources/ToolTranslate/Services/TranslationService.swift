@@ -9,7 +9,7 @@ final class TranslationService {
         self.maxInputCharacters = maxInputCharacters
     }
 
-    func translateToVietnamese(_ rawText: String) async throws -> TranslationResult {
+    func translate(_ rawText: String, targetLanguage: TargetLanguage) async throws -> TranslationResult {
         let text = rawText.trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard !text.isEmpty else {
@@ -20,9 +20,10 @@ final class TranslationService {
             throw AppError.inputTooLong(limit: maxInputCharacters)
         }
 
-        let options = TranslationOptions.vietnameseNatural(
+        let options = TranslationOptions.natural(
+            target: targetLanguage,
             maxInputCharacters: maxInputCharacters
         )
-        return try await engine.translateToVietnamese(text: text, options: options)
+        return try await engine.translate(text: text, options: options)
     }
 }

@@ -7,7 +7,7 @@ final class TranslationServiceTests: XCTestCase {
         let service = TranslationService(engine: engine, maxInputCharacters: 20)
 
         do {
-            _ = try await service.translateToVietnamese("   ")
+            _ = try await service.translate("   ", targetLanguage: .vietnamese)
             XCTFail("Expected empty input to throw")
         } catch let error as AppError {
             XCTAssertEqual(error, .emptyInput)
@@ -21,7 +21,7 @@ final class TranslationServiceTests: XCTestCase {
         let service = TranslationService(engine: engine, maxInputCharacters: 5)
 
         do {
-            _ = try await service.translateToVietnamese("abcdef")
+            _ = try await service.translate("abcdef", targetLanguage: .vietnamese)
             XCTFail("Expected long input to throw")
         } catch let error as AppError {
             XCTAssertEqual(error, .inputTooLong(limit: 5))
@@ -34,10 +34,10 @@ final class TranslationServiceTests: XCTestCase {
         let engine = MockTranslationEngine(result: .success(.sample))
         let service = TranslationService(engine: engine, maxInputCharacters: 100)
 
-        _ = try await service.translateToVietnamese("  hello world  ")
+        _ = try await service.translate("  hello world  ", targetLanguage: .vietnamese)
 
         XCTAssertEqual(engine.receivedText, "hello world")
-        XCTAssertEqual(engine.receivedOptions?.targetLanguage, "vi")
+        XCTAssertEqual(engine.receivedOptions?.targetLanguage, .vietnamese)
         XCTAssertEqual(engine.receivedOptions?.style, .natural)
     }
 
@@ -51,7 +51,7 @@ final class TranslationServiceTests: XCTestCase {
         let engine = MockTranslationEngine(result: .success(expected))
         let service = TranslationService(engine: engine, maxInputCharacters: 100)
 
-        let actual = try await service.translateToVietnamese("hello")
+        let actual = try await service.translate("hello", targetLanguage: .vietnamese)
 
         XCTAssertEqual(actual, expected)
     }
@@ -68,7 +68,7 @@ private final class MockTranslationEngine: TranslationEngine {
         self.result = result
     }
 
-    func translateToVietnamese(
+    func translate(
         text: String,
         options: TranslationOptions
     ) async throws -> TranslationResult {

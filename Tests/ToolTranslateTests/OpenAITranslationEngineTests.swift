@@ -44,9 +44,9 @@ final class OpenAITranslationEngineTests: XCTestCase {
             session: .mocked
         )
 
-        let result = try await engine.translateToVietnamese(
+        let result = try await engine.translate(
             text: "Hello world",
-            options: .vietnameseNatural(maxInputCharacters: 6000)
+            options: .natural(target: .vietnamese, maxInputCharacters: 6000)
         )
 
         XCTAssertEqual(result.translatedText, "Xin chao the gioi")
@@ -62,9 +62,9 @@ final class OpenAITranslationEngineTests: XCTestCase {
         )
 
         do {
-            _ = try await engine.translateToVietnamese(
+            _ = try await engine.translate(
                 text: "Hello",
-                options: .vietnameseNatural(maxInputCharacters: 6000)
+                options: .natural(target: .vietnamese, maxInputCharacters: 6000)
             )
             XCTFail("Expected missing API key")
         } catch let error as AppError {
@@ -91,9 +91,9 @@ final class OpenAITranslationEngineTests: XCTestCase {
         )
 
         do {
-            _ = try await engine.translateToVietnamese(
+            _ = try await engine.translate(
                 text: "Hello",
-                options: .vietnameseNatural(maxInputCharacters: 6000)
+                options: .natural(target: .vietnamese, maxInputCharacters: 6000)
             )
             XCTFail("Expected unauthorized error")
         } catch let error as AppError {

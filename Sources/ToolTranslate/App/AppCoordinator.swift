@@ -62,7 +62,8 @@ final class AppCoordinator {
         popupWindowController.update(state: .loading("Translating..."))
 
         do {
-            let result = try await translationService.translateToVietnamese(text)
+            let targetLanguage = UserDefaults.standard.targetLanguage
+            let result = try await translationService.translate(text, targetLanguage: targetLanguage)
             popupWindowController.update(state: .result(result.translatedText))
         } catch AppError.missingAPIKey {
             popupWindowController.update(state: .error("Open Settings and save your OpenAI API key."))

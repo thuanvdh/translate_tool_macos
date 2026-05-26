@@ -8,6 +8,7 @@ extension Notification.Name {
 final class SettingsWindowController: NSWindowController {
     private let apiKeyField = NSSecureTextField()
     private let shortcutRecorder = ShortcutRecorderButton()
+    private let languagePopUp = NSPopUpButton()
     private let statusLabel = NSTextField(labelWithString: "")
     private let keychainStore: KeychainStore
 
@@ -15,7 +16,7 @@ final class SettingsWindowController: NSWindowController {
         self.keychainStore = keychainStore
 
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 460, height: 210),
+            contentRect: NSRect(x: 0, y: 0, width: 460, height: 250),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
@@ -56,6 +57,30 @@ final class SettingsWindowController: NSWindowController {
             NotificationCenter.default.post(name: .appShortcutDidChange, object: nil)
         }
 
+        let languageRow = NSStackView()
+        languageRow.orientation = .horizontal
+        languageRow.spacing = 8
+        languageRow.distribution = .fill
+
+        let languageText = NSTextField(labelWithString: "Target Language:")
+        languageText.font = NSFont.boldSystemFont(ofSize: 13)
+
+        languagePopUp.target = self
+        languagePopUp.action = #selector(languageChanged)
+
+        for lang in TargetLanguage.allCases {
+            languagePopUp.addItem(withTitle: lang.displayName)
+            languagePopUp.lastItem?.representedObject = lang.rawValue
+        }
+
+        let savedLang = UserDefaults.standard.targetLanguage
+        if let index = TargetLanguage.allCases.firstIndex(of: savedLang) {
+            languagePopUp.selectItem(at: index)
+        }
+
+        languageRow.addArrangedSubview(languageText)
+        languageRow.addArrangedSubview(languagePopUp)
+
         let privacyText = NSTextField(labelWithString: "Privacy: selected text is sent to OpenAI for translation. This app does not store history or cache translations.")
         privacyText.lineBreakMode = .byWordWrapping
         privacyText.maximumNumberOfLines = 3
@@ -64,10 +89,18 @@ final class SettingsWindowController: NSWindowController {
         root.addArrangedSubview(apiKeyField)
         root.addArrangedSubview(saveButton)
         root.addArrangedSubview(shortcutRow)
+        root.addArrangedSubview(languageRow)
         root.addArrangedSubview(privacyText)
         root.addArrangedSubview(statusLabel)
 
         return root
+    }
+
+    @objc private func languageChanged() {
+        if let rawValue = languagePopUp.selectedItem?.representedObject as? String,
+           let selectedLang = TargetLanguage(rawValue: rawValue) {
+            UserDefaults.standard.targetLanguage = selectedLang
+        }
     }
 
     private func loadSavedKey() {

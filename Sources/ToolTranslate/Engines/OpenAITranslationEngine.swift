@@ -17,7 +17,7 @@ final class OpenAITranslationEngine: TranslationEngine {
         self.session = session
     }
 
-    func translateToVietnamese(
+    func translate(
         text: String,
         options: TranslationOptions
     ) async throws -> TranslationResult {
@@ -31,7 +31,7 @@ final class OpenAITranslationEngine: TranslationEngine {
         request.timeoutInterval = 30
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(makeRequestBody(text: text))
+        request.httpBody = try JSONEncoder().encode(makeRequestBody(text: text, targetLanguage: options.targetLanguage))
 
         let (data, response): (Data, URLResponse)
         do {
@@ -66,13 +66,13 @@ final class OpenAITranslationEngine: TranslationEngine {
         )
     }
 
-    private func makeRequestBody(text: String) -> OpenAIResponsesRequest {
+    private func makeRequestBody(text: String, targetLanguage: TargetLanguage) -> OpenAIResponsesRequest {
         OpenAIResponsesRequest(
             model: model,
             input: [
                 .init(
                     role: "system",
-                    content: "Translate the user's text into natural Vietnamese. Preserve proper nouns, code, commands, API names, file paths, and technical terms. Return only the Vietnamese translation."
+                    content: "Translate the user's text into natural \(targetLanguage.englishName). Preserve proper nouns, code, commands, API names, file paths, and technical terms. Return only the translation."
                 ),
                 .init(role: "user", content: text)
             ],
